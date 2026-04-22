@@ -1,0 +1,84 @@
+Google authenticator
+Microsoft Autenticator
+webex
+teams
+
+Registro de entrada y salida.
+Ext. 4000
+!C3s5#L5j4
+
+
+
+
+
+Por favor ayúdame a realizar un diagrama con los siguientes componentes: Azure Active Directory B2B, Azure Blob Storage Account (ADLS Gen2), Azure Blob Storage (Cool/Hot/Tier), Azure File, Azure Virtual Network, Azure Private EndPoint, Azure Firewall /NGS, Azure VPN Gateway, Azure Key Vault, Microsoft Entra ID (Azure AD), Azure Monitoring + Log Analytics, Azure Backup, Azure Policy, Azure Cost Management 
+
+
+
+
+
+
+Ing. Roberto.
+
+Ya tiene AD local, pero falta llevarlo a Azure.
+
+VPN alcance S2S
+
+footinet
+
+Firewall local NO
+
+Servidor file server, pasarlo a Azure, servicio SMB, Confifencial.
+Iso 27001.
+Servidores en México 
+10 % 
+
+4 Tb de Información.
+
+--------------------------
+Información
+
+1 vez al dia,
+1 semana
+1 mensual
+
+Temas de seguridad, 
+SFTP
+
+manera automática:
+Canal seguro, Instancias separadas.
+BAckup, depuración de información. 
+
+5 años de información, almacenada. 
+
+Puede ser de ida y vuelta, la transferencia de información.
+llaves publicas, 
+
+Ley federal de protección de Datos.
+Iso 27001 protección de datos privados.
+
+Accesos restricción: En Excel tiene toda la informacion
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
