@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Journey to Azure — Visión Ejecutiva</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Sora:wght@300;400;600;700&family=Inter:wght@300;400;500;600&display=swap');
+
+  :root {
+    --purple: #6B4FBB; --purple-light: #EDE9F9; --purple-dark: #3C2D80;
+    --teal: #0F7B6C; --teal-light: #E0F5F2; --teal-dark: #084F46;
+    --blue: #1565C0; --blue-light: #E3EEF9; --blue-dark: #0D3C7A;
+    --green: #2E7D32; --green-light: #E8F5E9; --green-dark: #1B4F1E;
+    --gray: #37474F; --gray-light: #F5F7F8; --border: #DDE3E8;
+    --text: #1A1F2E; --muted: #6B7280;
+    --shadow: 0 2px 12px rgba(0,0,0,0.08);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    background: #F0F4F8;
+    color: var(--text);
+    min-height: 100vh;
+    padding: 40px 24px;
+  }
+
+  .page-title {
+    font-family: 'Sora', sans-serif;
+    font-size: 26px;
+    font-weight: 700;
+    text-align: center;
+    color: var(--text);
+    margin-bottom: 8px;
+    letter-spacing: -0.5px;
+  }
+  .page-subtitle {
+    text-align: center;
+    font-size: 14px;
+    color: var(--muted);
+    margin-bottom: 40px;
+  }
+
+  /* Timeline bar */
+  .timeline-wrap {
+    max-width: 1100px;
+    margin: 0 auto 24px;
+    position: relative;
+    padding: 0 20px;
+  }
+  .timeline-bar {
+    height: 3px;
+    background: var(--border);
+    border-radius: 2px;
+    position: relative;
+    margin: 28px 0 6px;
+  }
+  .timeline-bar::before {
+    content: '';
+    position: absolute;
+    left: 0; top: 0;
+    width: 100%; height: 100%;
+    background: linear-gradient(90deg, var(--purple), var(--teal), var(--blue), var(--green));
+    border-radius: 2px;
+    opacity: 0.4;
+  }
+  .timeline-dots {
+    display: flex;
+    justify-content: space-between;
+    position: absolute;
+    top: 21px;
+    left: 20px;
+    right: 20px;
+  }
+  .timeline-dots span {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: white;
+    border: 2px solid var(--border);
+  }
+  .timeline-durations {
+    display: flex;
+    justify-content: space-between;
+    padding: 0 10px;
+    margin-top: 10px;
+  }
+  .timeline-durations span {
+    font-size: 11px;
+    color: var(--muted);
+    text-align: center;
+    flex: 1;
+  }
+
+  /* Stage grid */
+  .stages {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  .stage {
+    background: white;
+    border-radius: 14px;
+    box-shadow: var(--shadow);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.2s, box-shadow 0.2s;
+    cursor: default;
+  }
+  .stage:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 24px rgba(0,0,0,0.13);
+  }
+
+  .stage-header {
+    padding: 20px 18px 16px;
+    position: relative;
+  }
+  .stage-number {
+    font-family: 'Sora', sans-serif;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    opacity: 0.7;
+    margin-bottom: 4px;
+  }
+  .stage-title {
+    font-family: 'Sora', sans-serif;
+    font-size: 17px;
+    font-weight: 700;
+    line-height: 1.2;
+  }
+  .stage-duration {
+    font-size: 11px;
+    margin-top: 6px;
+    opacity: 0.65;
+    font-weight: 500;
+  }
+
+  .stage-body {
+    flex: 1;
+    padding: 0 18px 16px;
+    border-top: 1px solid rgba(0,0,0,0.06);
+  }
+
+  .item-group {
+    padding: 12px 0;
+    border-bottom: 1px solid #F0F2F5;
+  }
+  .item-group:last-of-type { border-bottom: none; }
+
+  .item-label {
+    font-size: 12px;
+    font-weight: 600;
+    margin-bottom: 4px;
+  }
+  .item-desc {
+    font-size: 11.5px;
+    color: var(--muted);
+    line-height: 1.5;
+  }
+
+  .stage-footer {
+    padding: 14px 18px;
+    border-top: 1px solid #F0F2F5;
+  }
+  .footer-label {
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 6px;
+  }
+  .footer-result {
+    font-size: 12.5px;
+    font-weight: 600;
+    line-height: 1.4;
+  }
+  .footer-badge {
+    display: inline-block;
+    padding: 4px 10px;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: 600;
+    margin-top: 8px;
+  }
+
+  /* Color themes */
+  .s1 .stage-header { background: var(--purple-light); color: var(--purple-dark); }
+  .s1 .stage-number { color: var(--purple); }
+  .s1 .stage-title { color: var(--purple-dark); }
+  .s1 .stage-duration { color: var(--purple); }
+  .s1 .item-label { color: var(--purple-dark); }
+  .s1 .footer-result { color: var(--purple-dark); }
+  .s1 .footer-badge { background: var(--purple-light); color: var(--purple-dark); }
+
+  .s2 .stage-header { background: var(--teal-light); color: var(--teal-dark); }
+  .s2 .stage-number { color: var(--teal); }
+  .s2 .stage-title { color: var(--teal-dark); }
+  .s2 .stage-duration { color: var(--teal); }
+  .s2 .item-label { color: var(--teal-dark); }
+  .s2 .footer-result { color: var(--teal-dark); }
+  .s2 .footer-badge { background: var(--teal-light); color: var(--teal-dark); }
+
+  .s3 .stage-header { background: var(--blue-light); color: var(--blue-dark); }
+  .s3 .stage-number { color: var(--blue); }
+  .s3 .stage-title { color: var(--blue-dark); }
+  .s3 .stage-duration { color: var(--blue); }
+  .s3 .item-label { color: var(--blue-dark); }
+  .s3 .footer-result { color: var(--blue-dark); }
+  .s3 .footer-badge { background: var(--blue-light); color: var(--blue-dark); }
+
+  .s4 .stage-header { background: var(--green-light); color: var(--green-dark); }
+  .s4 .stage-number { color: var(--green); }
+  .s4 .stage-title { color: var(--green-dark); }
+  .s4 .stage-duration { color: var(--green); }
+  .s4 .item-label { color: var(--green-dark); }
+  .s4 .footer-result { color: var(--green-dark); }
+  .s4 .footer-badge { background: var(--green-light); color: var(--green-dark); }
+
+  .arrow-row {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    max-width: 1100px;
+    margin: 0 auto 16px;
+  }
+
+  @media (max-width: 900px) {
+    .stages { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (max-width: 560px) {
+    .stages { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<h1 class="page-title">Journey to Azure — Visión Ejecutiva</h1>
+<p class="page-subtitle">Meca | Migración a nube Microsoft Azure · 4 etapas · ~9 meses estimados</p>
+
+<div class="timeline-wrap">
+  <div class="timeline-bar"></div>
+  <div class="timeline-dots">
+    <span></span><span></span><span></span><span></span><span></span>
+  </div>
+  <div class="timeline-durations">
+    <span>4–6 sem</span>
+    <span>6–8 sem</span>
+    <span>12–16 sem</span>
+    <span>Continuo</span>
+  </div>
+</div>
+
+<div class="stages">
+
+  <!-- Etapa 1 -->
+  <div class="stage s1">
+    <div class="stage-header">
+      <div class="stage-number">Etapa 1</div>
+      <div class="stage-title">Assessment &amp; Planeación</div>
+      <div class="stage-duration">⏱ 4 – 6 semanas</div>
+    </div>
+    <div class="stage-body">
+      <div class="item-group">
+        <div class="item-label">🔍 Levantamiento técnico</div>
+        <div class="item-desc">Inventario de VMs, SOs, versiones, dependencias. Identificación de servidores delicados (APPS-2) y críticos (GSS, SQL).</div>
+      </div>
+      <div class="item-group">
+        <div class="item-label">💰 TCO Comparativo</div>
+        <div class="item-desc">Costo total on-premises vs. Azure. Incluye hardware, licencias, energía, personal y contratos Veeam.</div>
+      </div>
+      <div class="item-group">
+        <div class="item-label">⚠️ Análisis de riesgos</div>
+        <div class="item-desc">Compatibilidad de GSS01 con Azure, licencias SQL, estado de APPS-2 y dependencias de ID de hardware.</div>
+      </div>
+      <div class="item-group">
+        <div class="item-label">🗺️ Roadmap por fases</div>
+        <div class="item-desc">Secuencia de migración ordenada por criticidad, riesgo y dependencias entre servicios.</div>
+      </div>
+    </div>
+    <div class="stage-footer">
+      <div class="footer-label">Resultado clave</div>
+      <div class="footer-result">Documento de Assessment + Plan ejecutivo aprobado</div>
+      <span class="footer-badge">Go / No-Go de migración</span>
+    </div>
+  </div>
+
+  <!-- Etapa 2 -->
+  <div class="stage s2">
+    <div class="stage-header">
+      <div class="stage-number">Etapa 2</div>
+      <div class="stage-title">Fundación Cloud (Landing Zone)</div>
+      <div class="stage-duration">⏱ 6 – 8 semanas</div>
+    </div>
+    <div class="stage-body">
+      <div class="item-group">
+        <div class="item-label">🏗️ Suscripción &amp; Tenant</div>
+        <div class="item-desc">Creación de suscripciones Azure, Management Groups, políticas de gobernanza y etiquetado.</div>
+      </div>
+      <div class="item-group">
+        <div class="item-label">🌐 Red &amp; Conectividad</div>
+        <div class="item-desc">VNet Hub-Spoke, subnets segmentadas, VPN Site-to-Site a Ubicación #1 y #2, NSG y firewall Azure.</div>
+      </div>
+      <div class="item-group">
+        <div class="item-label">🪪 Identidad híbrida</div>
+        <div class="item-desc">Configuración de Entra ID (AAD), sincronización con DC on-premises vía EntraConnect, MFA y RBAC.</div>
+      </div>
+      <div class="item-group">
+        <div class="item-label">💾 Backup &amp; Storage</div>
+        <div class="item-desc">Recovery Services Vault, Azure Backup para los 3 servidores prioritarios, políticas de retención.</div>
+      </div>
+    </div>
+    <div class="stage-footer">
+      <div class="footer-label">Resultado clave</div>
+      <div class="footer-result">Landing Zone certificada lista para producción</div>
+      <span class="footer-badge">Ambiente Azure productivo</span>
+    </div>
+  </div>
+
+  <!-- Etapa 3 -->
+  <div class="stage s3">
+    <div class="stage-header">
+      <div class="stage-number">Etapa 3</div>
+      <div class="stage-title">Migración por Fases</div>
+      <div class="stage-duration">⏱ 12 – 16 semanas</div>
+    </div>
+    <div class="stage-body">
+      <div class="item-group">
+        <div class="item-label">🟢 Fase A — Bajo riesgo</div>
+        <div class="item-desc">APPS-3 (diseño 3D), DC secundario (DC-5). Lift &amp; shift sin dependencias críticas. Validación de conectividad.</div>
+      </div>
+      <div class="item-group">
+        <div class="item-label">🔵 Fase B — DRP activo</div>
+        <div class="item-desc">Azure Site Recovery para servidores core. Replicación continua, prueba de failover y validación de RTO/RPO.</div>
+      </div>
+      <div class="item-group">
+        <div class="item-label">🟡 Fase C — Core de negocio</div>
+        <div class="item-desc">GSS01 (ERP Manufactura), SQL Server, APPS de producción, DC-3. Migración con ventana de mantenimiento.</div>
+      </div>
+      <div class="item-group">
+        <div class="item-label">🔴 Fase D — Servidor delicado</div>
+        <div class="item-desc">APPS-2 con plan de troubleshooting, rollback documentado y pruebas extensivas de IDs y aplicaciones.</div>
+      </div>
+    </div>
+    <div class="stage-footer">
+      <div class="footer-label">Resultado clave</div>
+      <div class="footer-result">VMs migradas a Azure + DRP operativo en todas las cargas</div>
+      <span class="footer-badge">Failover probado y funcional</span>
+    </div>
+  </div>
+
+  <!-- Etapa 4 -->
+  <div class="stage s4">
+    <div class="stage-header">
+      <div class="stage-number">Etapa 4</div>
+      <div class="stage-title">Optimización &amp; Operación</div>
+      <div class="stage-duration">⏱ Continuo post-migración</div>
+    </div>
+    <div class="stage-body">
+      <div class="item-group">
+        <div class="item-label">💹 FinOps &amp; Costos</div>
+        <div class="item-desc">Reserved Instances, Azure Hybrid Benefit (SQL + Windows), rightsizing de VMs, alertas de presupuesto.</div>
+      </div>
+      <div class="item-group">
+        <div class="item-label">🛡️ Seguridad avanzada</div>
+        <div class="item-desc">Microsoft Defender for Cloud, Microsoft Sentinel (SIEM), revisión de políticas y accesos privilegiados.</div>
+      </div>
+      <div class="item-group">
+        <div class="item-label">⚙️ Modernización PaaS</div>
+        <div class="item-desc">Evaluación de SQL Managed Instance, App Service para IIS, posible containerización de cargas.</div>
+      </div>
+      <div class="item-group">
+        <div class="item-label">📊 Monitoreo &amp; Observabilidad</div>
+        <div class="item-desc">Azure Monitor, Log Analytics, dashboards ejecutivos de disponibilidad, performance y costos.</div>
+      </div>
+    </div>
+    <div class="stage-footer">
+      <div class="footer-label">Resultado clave</div>
+      <div class="footer-result">Plataforma madura, documentada y optimizada en costo</div>
+      <span class="footer-badge">Operación cloud estable</span>
+    </div>
+  </div>
+
+</div>
+
+</body>
+</html>

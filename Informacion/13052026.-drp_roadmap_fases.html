@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DRP Roadmap — Disaster Recovery por Fases</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Sora:wght@300;400;600;700&family=Inter:wght@300;400;500;600&display=swap');
+
+  :root {
+    --c1: #7B3FA8; --c1l: #F3EBF9; --c1d: #4A1F6E;
+    --c2: #1565C0; --c2l: #E3EEF9; --c2d: #0D3C7A;
+    --c3: #0F7B6C; --c3l: #E0F5F2; --c3d: #074F46;
+    --c4: #2E7D32; --c4l: #E8F5E9; --c4d: #1B4F1E;
+    --warn: #E65100; --warnl: #FFF3E0; --warnd: #8D3200;
+    --border: #DDE3E8; --bg: #EEF2F7;
+    --text: #1A1F2E; --muted: #6B7280;
+    --shadow: 0 2px 14px rgba(0,0,0,0.08);
+    --card: white;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Inter', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    padding: 40px 24px 60px;
+  }
+
+  .page-title {
+    font-family: 'Sora', sans-serif;
+    font-size: 24px;
+    font-weight: 700;
+    text-align: center;
+    margin-bottom: 6px;
+  }
+  .page-sub {
+    text-align: center;
+    font-size: 13px;
+    color: var(--muted);
+    margin-bottom: 36px;
+  }
+
+  /* ---- SLA strip ---- */
+  .sla-strip {
+    max-width: 960px;
+    margin: 0 auto 32px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+  }
+  .sla-card {
+    background: var(--card);
+    border-radius: 12px;
+    padding: 16px 20px;
+    box-shadow: var(--shadow);
+    text-align: center;
+  }
+  .sla-value {
+    font-family: 'Sora', sans-serif;
+    font-size: 28px;
+    font-weight: 700;
+    line-height: 1;
+    margin-bottom: 4px;
+  }
+  .sla-label { font-size: 12px; color: var(--muted); }
+  .sla-note  { font-size: 11px; color: var(--muted); margin-top: 4px; }
+
+  /* ---- Phases ---- */
+  .phases-wrap { max-width: 960px; margin: 0 auto; }
+
+  .phase {
+    background: var(--card);
+    border-radius: 14px;
+    box-shadow: var(--shadow);
+    margin-bottom: 18px;
+    overflow: hidden;
+    display: grid;
+    grid-template-columns: 220px 1fr;
+  }
+
+  .phase-left {
+    padding: 24px 22px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  .phase-tag {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 1.4px;
+    text-transform: uppercase;
+    margin-bottom: 6px;
+  }
+  .phase-name {
+    font-family: 'Sora', sans-serif;
+    font-size: 17px;
+    font-weight: 700;
+    line-height: 1.25;
+    margin-bottom: 10px;
+  }
+  .phase-when {
+    font-size: 12px;
+    font-weight: 500;
+    padding: 5px 10px;
+    border-radius: 20px;
+    display: inline-block;
+    width: fit-content;
+  }
+  .phase-objective {
+    font-size: 12px;
+    line-height: 1.5;
+    margin-top: 12px;
+  }
+
+  .phase-right {
+    padding: 22px 24px;
+    border-left: 1px solid var(--border);
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 14px;
+  }
+
+  .col-header {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--muted);
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 10px;
+  }
+
+  .col-item {
+    font-size: 12px;
+    line-height: 1.5;
+    color: var(--muted);
+    padding: 4px 0;
+    border-bottom: 1px solid #F5F6F8;
+  }
+  .col-item strong {
+    display: block;
+    font-weight: 600;
+    color: var(--text);
+    font-size: 12px;
+  }
+
+  .metric-pair {
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
+  }
+  .metric {
+    flex: 1;
+    background: var(--bg);
+    border-radius: 8px;
+    padding: 8px 10px;
+    text-align: center;
+  }
+  .metric-val {
+    font-family: 'Sora', sans-serif;
+    font-size: 18px;
+    font-weight: 700;
+    line-height: 1;
+    margin-bottom: 2px;
+  }
+  .metric-lbl { font-size: 10px; color: var(--muted); }
+
+  /* Color per phase */
+  .p1 .phase-left { background: var(--c1l); }
+  .p1 .phase-tag  { color: var(--c1); }
+  .p1 .phase-name { color: var(--c1d); }
+  .p1 .phase-when { background: var(--c1l); color: var(--c1d); }
+  .p1 .metric-val { color: var(--c1d); }
+
+  .p2 .phase-left { background: var(--c2l); }
+  .p2 .phase-tag  { color: var(--c2); }
+  .p2 .phase-name { color: var(--c2d); }
+  .p2 .phase-when { background: var(--c2l); color: var(--c2d); }
+  .p2 .metric-val { color: var(--c2d); }
+
+  .p3 .phase-left { background: var(--c3l); }
+  .p3 .phase-tag  { color: var(--c3); }
+  .p3 .phase-name { color: var(--c3d); }
+  .p3 .phase-when { background: var(--c3l); color: var(--c3d); }
+  .p3 .metric-val { color: var(--c3d); }
+
+  .p4 .phase-left { background: var(--c4l); }
+  .p4 .phase-tag  { color: var(--c4); }
+  .p4 .phase-name { color: var(--c4d); }
+  .p4 .phase-when { background: var(--c4l); color: var(--c4d); }
+  .p4 .metric-val { color: var(--c4d); }
+
+  /* Warning note */
+  .note {
+    max-width: 960px;
+    margin: 24px auto 0;
+    background: var(--warnl);
+    border-left: 4px solid var(--warn);
+    border-radius: 0 10px 10px 0;
+    padding: 14px 18px;
+    font-size: 12.5px;
+    color: var(--warnd);
+    line-height: 1.6;
+  }
+  .note strong { font-weight: 700; }
+
+  /* ---- Lifecycle flow ---- */
+  .lifecycle {
+    max-width: 960px;
+    margin: 28px auto 0;
+    background: var(--card);
+    border-radius: 14px;
+    padding: 24px 28px;
+    box-shadow: var(--shadow);
+  }
+  .lifecycle-title {
+    font-family: 'Sora', sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    margin-bottom: 18px;
+    color: var(--text);
+  }
+  .flow {
+    display: flex;
+    align-items: center;
+    gap: 0;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+  }
+  .flow-step {
+    flex: 1;
+    min-width: 110px;
+    text-align: center;
+    padding: 12px 8px;
+    border-radius: 10px;
+    background: var(--bg);
+  }
+  .flow-step .fs-icon { font-size: 22px; margin-bottom: 4px; }
+  .flow-step .fs-name { font-size: 11.5px; font-weight: 700; color: var(--text); }
+  .flow-step .fs-desc { font-size: 10px; color: var(--muted); margin-top: 2px; line-height: 1.4; }
+  .flow-arrow {
+    font-size: 20px;
+    color: var(--border);
+    padding: 0 4px;
+    flex-shrink: 0;
+  }
+
+  @media (max-width: 760px) {
+    .phase { grid-template-columns: 1fr; }
+    .phase-right { grid-template-columns: 1fr; border-left: none; border-top: 1px solid var(--border); }
+    .sla-strip { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<h1 class="page-title">Roadmap DRP — Disaster Recovery por Fases</h1>
+<p class="page-sub">Meca | Azure Site Recovery · Modelo de recuperación ante desastres · Basado en infraestructura Hyper-V on-premises</p>
+
+<!-- SLA strip -->
+<div class="sla-strip">
+  <div class="sla-card">
+    <div class="sla-value" style="color:#7B3FA8">99.9%</div>
+    <div class="sla-label">Disponibilidad Azure Site Recovery</div>
+    <div class="sla-note">SLA garantizado por Microsoft por ciclo mensual</div>
+  </div>
+  <div class="sla-card">
+    <div class="sla-value" style="color:#1565C0">&lt; 2 hrs</div>
+    <div class="sla-label">RTO garantizado (failover)</div>
+    <div class="sla-note">On-Premises → Azure (planeado y no planeado)</div>
+  </div>
+  <div class="sla-card">
+    <div class="sla-value" style="color:#0F7B6C">A definir</div>
+    <div class="sla-label">RPO real por carga</div>
+    <div class="sla-note">Se calcula post-implementación según periodicidad de replicación</div>
+  </div>
+</div>
+
+<div class="phases-wrap">
+
+  <!-- Fase 1 -->
+  <div class="phase p1">
+    <div class="phase-left">
+      <div>
+        <div class="phase-tag">Fase 1</div>
+        <div class="phase-name">DRP Fundacional: Protección de Directorio y Backups</div>
+        <div class="phase-when">Semanas 1–8</div>
+        <div class="phase-objective" style="color:#4A1F6E">Establecer la base del DRP: identidad, respaldo y recuperación básica antes de cualquier migración de producción.</div>
+      </div>
+      <div class="metric-pair">
+        <div class="metric"><div class="metric-val">3</div><div class="metric-lbl">Servidores protegidos</div></div>
+        <div class="metric"><div class="metric-val">Azure Backup</div><div class="metric-lbl">Mecanismo</div></div>
+      </div>
+    </div>
+    <div class="phase-right">
+      <div>
+        <div class="col-header">Servidores en alcance</div>
+        <div class="col-item"><strong>DC-3 / DC-5</strong>Domain Controllers — replicación prioritaria</div>
+        <div class="col-item"><strong>EntraConnect</strong>Sincronización híbrida con Entra ID</div>
+        <div class="col-item"><strong>Veeam-12 / VeamMAN</strong>Repositorio de backups existente</div>
+      </div>
+      <div>
+        <div class="col-header">Actividades clave</div>
+        <div class="col-item">Habilitar Azure Backup para los 3 servidores prioritarios</div>
+        <div class="col-item">Configurar Recovery Services Vault en Azure</div>
+        <div class="col-item">Validar sincronización de identidades en Entra ID</div>
+        <div class="col-item">Probar restauración de un DC en ambiente de pruebas Azure</div>
+      </div>
+      <div>
+        <div class="col-header">Criterio de éxito</div>
+        <div class="col-item">Backups diarios verificados en Azure Vault</div>
+        <div class="col-item">Restauración exitosa de DC en &lt;4 horas</div>
+        <div class="col-item">Identidades sincronizadas con Entra ID funcional</div>
+        <div class="col-item">Documentación de procedimientos de restauración</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Fase 2 -->
+  <div class="phase p2">
+    <div class="phase-left">
+      <div>
+        <div class="phase-tag">Fase 2</div>
+        <div class="phase-name">DRP Activo: Replicación con Azure Site Recovery</div>
+        <div class="phase-when">Semanas 8–16</div>
+        <div class="phase-objective" style="color:#0D3C7A">Implementar replicación continua de VMs críticas hacia Azure mediante ASR. Primera prueba de failover documentada.</div>
+      </div>
+      <div class="metric-pair">
+        <div class="metric"><div class="metric-val">7</div><div class="metric-lbl">VMs replicadas</div></div>
+        <div class="metric"><div class="metric-val">ASR</div><div class="metric-lbl">Azure Site Recovery</div></div>
+      </div>
+    </div>
+    <div class="phase-right">
+      <div>
+        <div class="col-header">Servidores en alcance</div>
+        <div class="col-item"><strong>APPS (Ubicación #2)</strong>Aplicación de producción — crítica</div>
+        <div class="col-item"><strong>SQL (HyperV-MC)</strong>Base de datos principal del ERP</div>
+        <div class="col-item"><strong>GSS01</strong>ERP Global Shop Solutions — manufactura</div>
+        <div class="col-item"><strong>APPS-3</strong>Diseño 3D — bajo riesgo, piloto ASR</div>
+      </div>
+      <div>
+        <div class="col-header">Actividades clave</div>
+        <div class="col-item">Instalar Configuration &amp; Process Server en sitio cliente</div>
+        <div class="col-item">Configurar VPN Site-to-Site (Ubicación #1 y #2) con Azure</div>
+        <div class="col-item">Instalar Mobility Agent (Unified Agent) en cada VM</div>
+        <div class="col-item">Replicación inicial completa hacia Azure Storage</div>
+        <div class="col-item">Configurar Recovery Plans en ASR por grupo de VMs</div>
+      </div>
+      <div>
+        <div class="col-header">Criterio de éxito</div>
+        <div class="col-item">Replicación diferencial continua sin errores 7 días</div>
+        <div class="col-item">Test failover exitoso sin impacto en producción</div>
+        <div class="col-item">RTO medido y documentado ≤2 horas</div>
+        <div class="col-item">Matriz de pruebas completada y firmada por cliente</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Fase 3 -->
+  <div class="phase p3">
+    <div class="phase-left">
+      <div>
+        <div class="phase-tag">Fase 3</div>
+        <div class="phase-name">DRP Completo: Cobertura Total + Failback</div>
+        <div class="phase-when">Semanas 16–28</div>
+        <div class="phase-objective" style="color:#074F46">Extender protección a todas las cargas restantes. Incorporar APPS-2 con plan especial. Definir y probar el proceso completo de failback.</div>
+      </div>
+      <div class="metric-pair">
+        <div class="metric"><div class="metric-val">100%</div><div class="metric-lbl">VMs protegidas</div></div>
+        <div class="metric"><div class="metric-val">Failback</div><div class="metric-lbl">On-prem validado</div></div>
+      </div>
+    </div>
+    <div class="phase-right">
+      <div>
+        <div class="col-header">Servidores en alcance</div>
+        <div class="col-item"><strong>APPS-2 ⚠️</strong>Servidor delicado — requiere troubleshooting de IDs previo</div>
+        <div class="col-item"><strong>DC-6 (Ub. #2)</strong>Domain Controller secundario</div>
+        <div class="col-item"><strong>APPCAM</strong>Cámara / app secundaria — validar relevancia</div>
+        <div class="col-item"><strong>SQL-Servidor (Ub. #1)</strong>Base de datos adicional</div>
+      </div>
+      <div>
+        <div class="col-header">Actividades clave</div>
+        <div class="col-item">Plan especial de APPS-2: snapshot pre-replicación, validar IDs, rollback documentado</div>
+        <div class="col-item">Incorporar todas las VMs restantes a ASR y Recovery Plans</div>
+        <div class="col-item">Configurar proceso de failback (Azure → On-Premises)</div>
+        <div class="col-item">Simulacro de contingencia total con participación del cliente</div>
+        <div class="col-item">Medir RPO real por carga según tiempos de replicación</div>
+      </div>
+      <div>
+        <div class="col-header">Criterio de éxito</div>
+        <div class="col-item">Failover total ejecutado en &lt;2 horas (RTO Azure SLA)</div>
+        <div class="col-item">Failback exitoso sin pérdida de datos hacia on-premises</div>
+        <div class="col-item">APPS-2 replicando sin errores post-troubleshooting</div>
+        <div class="col-item">Procedimiento de activación DRP entregado y validado</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Fase 4 -->
+  <div class="phase p4">
+    <div class="phase-left">
+      <div>
+        <div class="phase-tag">Fase 4</div>
+        <div class="phase-name">DRP Maduro: Operación Continua y Mejora</div>
+        <div class="phase-when">Mes 7 en adelante</div>
+        <div class="phase-objective" style="color:#1B4F1E">Mantener y mejorar el DRP de forma continua. Pruebas periódicas, ajuste de RTO/RPO y evolución hacia zona secundaria Azure.</div>
+      </div>
+      <div class="metric-pair">
+        <div class="metric"><div class="metric-val">Trimestral</div><div class="metric-lbl">Prueba de failover</div></div>
+        <div class="metric"><div class="metric-val">Multi-región</div><div class="metric-lbl">Objetivo futuro</div></div>
+      </div>
+    </div>
+    <div class="phase-right">
+      <div>
+        <div class="col-header">Mejoras continuas</div>
+        <div class="col-item">Simulacros de failover programados trimestralmente</div>
+        <div class="col-item">Revisión y ajuste de Recovery Plans según cambios en infraestructura</div>
+        <div class="col-item">Alertas y monitoreo de estado de replicación (Azure Monitor)</div>
+        <div class="col-item">Evolución a protección multi-región Azure (Mexico Central + South Central US)</div>
+      </div>
+      <div>
+        <div class="col-header">Gobierno del DRP</div>
+        <div class="col-item">Runbook de activación actualizado semestralmente</div>
+        <div class="col-item">Responsables definidos: TI cliente + proveedor MSP</div>
+        <div class="col-item">Reporte ejecutivo mensual de estado de replicación</div>
+        <div class="col-item">Gestión de cambios: VMs nuevas → onboarding a ASR automático</div>
+      </div>
+      <div>
+        <div class="col-header">Evolución a considerar</div>
+        <div class="col-item">Migración de SQL a Azure SQL Managed Instance (eliminar servidor)</div>
+        <div class="col-item">Evaluación de Azure VMware Solution si se mantiene HyperV</div>
+        <div class="col-item">Microsoft Sentinel para SIEM integrado con DRP</div>
+        <div class="col-item">Business Continuity Plan (BCP) formal documentado</div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- Warning -->
+<div class="note">
+  <strong>⚠️ Consideraciones especiales identificadas:</strong>
+  APPS-2 requiere un plan de troubleshooting antes de cualquier replicación por su estado delicado con dependencias de IDs de hardware.
+  GSS01 (ERP Global Shop Solutions) debe validarse con el fabricante su compatibilidad con Azure antes de la Fase 2.
+  Failback desde Azure hacia AWS no está soportado por ASR; si los servidores AWS permanecen activos, el failback aplica solo hacia infraestructura on-premises HyperV.
+</div>
+
+<!-- Lifecycle flow -->
+<div class="lifecycle">
+  <div class="lifecycle-title">Ciclo de vida del DRP en operación continua</div>
+  <div class="flow">
+    <div class="flow-step">
+      <div class="fs-icon">🔄</div>
+      <div class="fs-name">Replicación</div>
+      <div class="fs-desc">Continua hacia Azure Storage</div>
+    </div>
+    <div class="flow-arrow">›</div>
+    <div class="flow-step">
+      <div class="fs-icon">🚨</div>
+      <div class="fs-name">Contingencia</div>
+      <div class="fs-desc">Activación del DRP (Failover)</div>
+    </div>
+    <div class="flow-arrow">›</div>
+    <div class="flow-step">
+      <div class="fs-icon">☁️</div>
+      <div class="fs-name">Operación en Azure</div>
+      <div class="fs-desc">VMs activas en Azure temporalmente</div>
+    </div>
+    <div class="flow-arrow">›</div>
+    <div class="flow-step">
+      <div class="fs-icon">↩️</div>
+      <div class="fs-name">Failback</div>
+      <div class="fs-desc">Sincronización inversa a on-prem</div>
+    </div>
+    <div class="flow-arrow">›</div>
+    <div class="flow-step">
+      <div class="fs-icon">🏠</div>
+      <div class="fs-name">Restauración</div>
+      <div class="fs-desc">Servicios en on-premises activos</div>
+    </div>
+    <div class="flow-arrow">›</div>
+    <div class="flow-step">
+      <div class="fs-icon">🔄</div>
+      <div class="fs-name">Replicación</div>
+      <div class="fs-desc">Retorno al estado 1</div>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>
