@@ -1,0 +1,118 @@
+Google authenticator
+Microsoft Autenticator
+webex
+teams
+
+Registro de entrada y salida.
+Ext. 4000
+!C3s5#L5j4
+
+
+
+
+
+Por favor ayúdame a realizar un diagrama con los siguientes componentes: Azure Active Directory B2B, Azure Blob Storage Account (ADLS Gen2), Azure Blob Storage (Cool/Hot/Tier), Azure File, Azure Virtual Network, Azure Private EndPoint, Azure Firewall /NGS, Azure VPN Gateway, Azure Key Vault, Microsoft Entra ID (Azure AD), Azure Monitoring + Log Analytics, Azure Backup, Azure Policy, Azure Cost Management 
+
+
+
+
+
+
+Ing. Roberto.
+
+Ya tiene AD local, pero falta llevarlo a Azure.
+
+VPN alcance S2S
+
+footinet
+
+Firewall local NO
+
+Servidor file server, pasarlo a Azure, servicio SMB, Confifencial.
+Iso 27001.
+Servidores en México 
+10 % 
+
+4 Tb de Información.
+
+--------------------------
+
+Actualmente se tiene un conjunto de clientes que nos proporciona Información por medio de un SFTP o ya sea que nosotros les demos acceso o que ellos nos indiquen en que ruta
+esta la información y nosotros accedemos al sitio SFTP de ellos y la descarguemos.
+
+Por cuestiones normativas se requiere tener aislada la información entre Clientes, Instancias Separadas.
+La información puede ser transferida 1 vez al dia, 1 vez a la semana, 1 vez al mes.
+EL Archivo puede ser CSV, Txt, Wordl, Excel, etc.
+Lo que sucede es que la gente de aplicativos consume el archivo
+
+
+Que temas de seguridad, que se le podría ofrecer 
+Algoritmo, Encriptación, llaves publicas, MFA, restricciones, canal seguro.
+
+se requiere conservar el archivo anterior por un periodo igual al cambio, es decir si se cambia diario el archivo, copiar el nuevo y borrar el de Ayer. para el semanal igual copiar el 
+nuevo y borrar el de la semana pasada, para el mensual igual, copiar el nuevo y borrar el anterior. de ser posible con un Script de forma automática.
+
+
+Alineadas a la Ley federal de protección de Datos. Iso 27001 protección de datos privados.
+
+Que solución podríamos proponerle al cliente en Azure:
+
+Por ejemplo un servicio de Shareoint.
+un servicio de storage en Azure.
+
+Un servicio de web service App.
+
+
+	
+tBtT-YRbd
+
+
+KC Seguros
+Insufficient Quota for select options
+
+There are no locations with enough quota to deploy this mpdel the selectd
+deployment type and version. You can try selecting a different deployment type or
+model version, or manage your quota.
+
+
+--------------------------
+
+Intune:
+
+Equipos
+
+
+---------------
+Grupo KC Seguros
+
+Actualmente se tiene una suscripción de Azure, en donde se han venido realiza una serie operaciones en producción y también se han venido probando algunos productos.
+Se desea hacer una estimación para la renovación de servicios que se tienen actualmente.
+Lo que se requiere es:
+Lista de todos los servicios, identificados.
+Cuales servicios serian candidatos a renovarse en un esquema de pay as to go.
+Cuales servicios serian candidatos a renovarse en un esquema de reserva a un año.
+
+
+
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
