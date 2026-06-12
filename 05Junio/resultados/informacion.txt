@@ -1,0 +1,7 @@
+Dudas técnicas.
+
+1.	Me gustaría saber si pueden ofrecerme una demo para hacer preguntas más orientadas al servicio.
+2.	En alguna ocasión con Mulesoft vi que ellos tenían un editor de flujos, que les ayudaba con la transformación de información y políticas, ¿Azure tiene algo similar en algún add on?
+3.	En Algunas integraciones tengo la necesidad de procesar el requerimiento tal cual habíamos conversado, pero una vez que se genere la transacción de mensaje, realizar otras acciones que usualmente son POST https para llamar a servicios externos, estas acciones podrían estar programadas en cualquier lugar del proceso entre recibir un requerimiento, y enviarlo a su destino final ¿Esto es posible?
+4.	¿Tenemos algún Marketplace con integraciones ya realizadas?
+5.	¿Cuáles son las posibilidades de integración de IA que tienen identificadas?
