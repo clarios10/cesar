@@ -1,0 +1,47 @@
+------------------------------------------------------------------
+Lista de Temario Para Azure APIs Management
+------------------------------------------------------------------
+
+Microsoft API Management
+
+Descripción general
+	Integración de servicios.
+Que es Azure API Management?
+Como se conectan las APIs?
+Características de la API Management?
+	Administración de la API.
+	Seguridad de la API
+	Escalabilidad
+	Analítica
+	Integración con Azure Services
+	Developer Portal
+	Gateway
+Componentes- portal de desarrolladores
+	Portal de desarrolladores
+	Leer documentación de la API
+	Probar una API
+	Crear una cuenta 
+	Obtener acceso a análisis
+Componentes Adicionales
+	Analytics
+	Productos
+	Grupos
+	Desarrolladores
+	Directivas
+	Políticas
+Componentes de Configuración
+	Entrada:
+	Backend
+	Salida
+	Error
+Componentes de configuración, ámbitos
+	Global
+	Producto
+	API
+	Operación
+
+Precios
+	Developer
+	Basic
+	Estándar
+	Premiunm
