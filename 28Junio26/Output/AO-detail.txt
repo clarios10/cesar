@@ -1,1 +1,2 @@
-
+Hallazgo crítico del inventario
+Todos los servidores tienen SQL Server Standard Edition. Always On AG completo requiere Enterprise Edition obligatoriamente. Esto está documentado como bloqueo en la portada, en riesgos R1 y en los supuestos. El cliente necesita adquirir 4 licencias Enterprise (3 locales + MXKI03PDBS001) antes de que inicie la Fase 2.
