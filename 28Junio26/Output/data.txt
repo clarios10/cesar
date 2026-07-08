@@ -1,0 +1,6 @@
+Standard HDD management disk Snapshots.
+visual studio professional -monthy,
+standard hdd managemen disk S10
+ip address Basic IPv4, azure
+General block blob -lrs
+Table -Lrs Azure
