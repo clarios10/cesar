@@ -1,1 +1,30 @@
 hola, nueva información por revisar
+-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|
+Caso de uso:
+Actualmente Grupo Romo se encuentra usando un Azure Blob Storage el cual esta formado por un presupuesto de 28 TB y un pago excedente de 23TB, con un total de 51 TB por el cual tiene un pago mensual de $909 USD.
+
+Para temas administrativos se requiere tener un solo presupuesto de $1000 USD, por lo que se le sustituirá el actual contrato que ampara los 28TB presupuestados originalmente por un nuevo contrato amparando los 51TB que se están trabajando.
+
+Ahora para poder Optimizar el uso de estos 51TB se deberán de aplicar una serie de políticas que se recomiendan a continuación:
+
+1.- Migrar datos frios a Cool/Archive Tier: Lifecycle Management: blobs sin acceso >30 dias a Cool, >90 dias a Archive. Hot LRS Data Stored
+2.- Configurar Azure Lifecycle Management Policy: Automatizar en Portal > Storage Account > Lifecycle Management. Reglas: tierToCool tras 30 dias sin acceso, tierToArchive tras 90 dias.
+3.- Auditar y eliminar datos obsoletos: Almacenamiento crecio +77% en 6 meses ($501 dic-25 a $891 may-26). Usar Blob Inventory para identificar blobs sin acceso reciente, duplicados o sin propietario. Establecer proceso mensual de limpieza.
+
+4.- Activar Cost Alerts y Budgets en Azure: Crear budget mensual ($900 USD) con alertas al 80% y 100% en Azure Cost Management + Billing. Agregar anomaly alert para detectar picos inesperados. Urgente dado el crecimiento acelerado.
+5.- Investigar pico de escrituras en Marzo 2026:  Marzo registro $5.00 en Write Operations vs ~$1 USD en otros meses (+400%). Revisar Azure Monitor > Storage Logs para identificar el proceso, aplicación o usuario responsable y optimizarlo.
+6.- Aplicar Tags de gobernanza al recurso: Etiquetar con, Proyecto, Ambiente (Dev/Prod), CentroCosto, Propietario. Habilita analisis granular en Azure Cost Management, chargeback por area y responsabilidad clara sobre el recurso.
+
+Por favor apóyame en generar los pasos para realizar dichas configuraciones.  
+
+
+
+
+Premisas:
+No se deberá de borrar nada de la información.
+
+Monitoreo: Por favor incluye temas de monitoreo para que avise la plataforma que va a mover.
+
+Backup: 
+Que podemos recomendar acerca de backups, ejemplo: Que los archivos con cierta etiqueta puedan ser respaldados una vez a la semana.
+
