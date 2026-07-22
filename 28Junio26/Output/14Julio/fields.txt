@@ -1,0 +1,5 @@
+Información de las columnas de cost management:
+Resource, ResourceId, ResourceType, ResourceGroupName, ResourceGroupId, ResourceLocation, SubscriptionName, SubscriptionId, Tags, ServiceName, ServiceTier, Product, Meter, Cost, CostUSD, Currency
+
+Información de las columnas de la plantilla:
+FechaConsumo, MesAño, Subscripción, SubscriptionId, Categoría, SubCategoría, Servicio, Meter Name, Instancia, Instance Id, Resource Group, Región, Unit Of Measure, Cantidad, Consumo
