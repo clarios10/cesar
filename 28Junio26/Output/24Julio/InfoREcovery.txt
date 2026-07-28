@@ -1,0 +1,15 @@
+Diagnóstico de la Situación Actual
+    
+Cuentas huérfanas: Al perderse el dominio local, Microsoft Entra ID perdió la referencia autoritativa de origen (SourceAnchor / immutableId).
+Bloqueo administrativo: La consola de Entra ID restringe cambios directos (como renombrar UPNs o modificar ciertos atributos) en cuentas que siguen marcadas como "sincronizadas desde local" (DirSyncEnabled: true).
+Sesiones actuales: Los usuarios pueden seguir usando Teams, Outlook y SharePoint con normalidad.
+Permisos de SharePoint: No se alteran de inmediato, ya que los permisos directos asignados a los usuarios o grupos existentes en la nube siguen escritos en las listas de control de acceso (ACL) de los sitios.
+Microsoft Teams: Los miembros actuales de los equipos pueden chatear y reunirse, no permite usuarios nuevos.
+
+
+Solución.
+    Recuperar el control y la administración de los servicios de M365.
+-------------------------------------------------------------------------
+-SuperMayoreo: 27Julio2026|Actualización de la propuesta de servicios.
+-Signature: Sacar una propuesta.
+----------------------------------------------------------------------
