@@ -1,0 +1,12 @@
+Instalación Inicial de S/4 Hana
+Máquinas Virtuales:
+	Familia R (R5, R6i, R7i)
+	Instancia: R6i.8xlarge  (32 VCPUs, 256 GB RAM)
+	Disco de OS: EBS gp3 (General purpose SSD)
+	Data: Data1 1.2 TB
+	Log : 0.5 GB
+	Share 1: 1 TB
+	Disk App: SAP 50 GB
+	
+	Familia: Familia X (X1, x2idn)
+	Instancia: x1.16xlarge, 1 TB de RAM
