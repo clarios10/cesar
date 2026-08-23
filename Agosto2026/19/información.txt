@@ -1,1 +1,11 @@
 Esto es la información para inicio
+
+
+Me paso tu contacto Itzel para ver si me podías orientar /Apoyar para conocer los posibles costos de licenciamiento de SQL Server 2025.
+Actualmente tenemos varios servidores Con SQL Server 2016 y estamos viendo la posible migración a la nueva versión.
+
+Estamos interesados en la versión Estándar y tengo algunas preguntas:
+
+1.- Según estaba revisando, se sigue manejando por cores. Entendemos que se ofrece en paquetes de 2 cores y se requerirían al menos dos paquetes de licencia (Cubrir 4 cores como mínimo). ¿Cuál seria el precio?
+2.- Según documentación que hemos visto, la versión Estándar incluye el licenciamiento de Power Bi Report Server, ¿Correcto?
+3.-Asumimos que con este licenciamiento estaríamos cubiertos, ¿Es correcto o hay algo mas que considerar?
