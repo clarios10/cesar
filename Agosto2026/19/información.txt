@@ -9,3 +9,21 @@ Estamos interesados en la versión Estándar y tengo algunas preguntas:
 1.- Según estaba revisando, se sigue manejando por cores. Entendemos que se ofrece en paquetes de 2 cores y se requerirían al menos dos paquetes de licencia (Cubrir 4 cores como mínimo). ¿Cuál seria el precio?
 2.- Según documentación que hemos visto, la versión Estándar incluye el licenciamiento de Power Bi Report Server, ¿Correcto?
 3.-Asumimos que con este licenciamiento estaríamos cubiertos, ¿Es correcto o hay algo mas que considerar?
+
+
+
+1 DC16ds v3 (16 Cores, 128 GB RAM) x 730 Horas (Pay as you go), Windows (Licencia incluida), OS Only; 0 managed disks – E10, 1000 
+transaction units; Internet egress, 200 GB outbound data transfer from Mexico Central routed via Red global de Microsoft
+• Managed Disks, SSD estándar, LRS Redundancia, E30 Tipo de disco 1 Discos, Transacciones de Storage: 1000; Pago por uso
+• Managed Disks, SSD estándar, LRS Redundancia, E30 Tipo de disco 1 Discos, Transacciones de Storage: 1000; Pago por uso
+• Managed Disks, SSD estándar, LRS Redundancia, E40 Tipo de disco 1 Discos, Transacciones de Storage: 1000; Pago por uso
+• 2 Redes virtuales administradas x 730Horas, 5 Comprobador de red, 2Direcciones IP administradas x 730Horas
+• Puertas de enlace de VPN, nivel básico de VPN, horas de puerta de enlace 40 10 túneles S2S, 128 conexiones P2S, 500GB, Transferencias 
+de datos entre redes virtuales tipo de puerta de enlace de VPN de salida
+• Zone 1, DNS, Privado; 2 zonas DNS hospedadas, 1 consulta de DNS
+• Log Analytics: Log Data; 1 recurso supervisado X 1 serie temporal métrica supervisada por recurso, 5 minutos Frecuencia de señal de 
+registro con 0 señales de registro series temporales y 1 supervisadas por señal, 0 eventos adicionales (en miles), 0 correos electrónicos 
+adicionales (en 100 000), 0 notificaciones push adicionales (en 100 000), 0 webhooks adicionales (en millones)
+• VM de Azure, Estándar Directiva de Backup, 1 Instancia(s) x 200 GB, LRS Redundancia, Bajo Renovación diaria media, 260 GB Promedio 
+de datos de copia de seguridad mensuales en el nivel Estándar, 0 GB Promedio de datos de copia de seguridad mensuales en el nivel de 
+archivo
