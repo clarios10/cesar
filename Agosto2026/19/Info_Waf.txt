@@ -1,0 +1,7 @@
+Un par de notas importantes sobre el contenido:
+
+Solución propuesta: Azure Application Gateway v2 con WAF_v2, que es la opción estándar para este escenario (aplicativo web + acceso desde Internet en una sola región). Mencioné Front Door Premium como alternativa si a futuro necesitan CDN/multi-región.
+Costos: Los usé como referencia con tarifas públicas vigentes de Azure (WAF_v2 ≈ $0.443/hr fijo + Capacity Units), pero te recomiendo confirmarlos con la Calculadora de Azure para la región Mexico Central antes de presentarlos como cotización formal — es una región relativamente nueva y las tarifas pueden variar ligeramente.
+Agregué en "Recomendaciones" el punto de separar la BD del servidor de aplicación, ya que con acceso directo desde Internet es un riesgo que vale la pena que quede documentado, aunque quede fuera del alcance de esta propuesta puntual.
+
+¿Quieres que ajuste algo — por ejemplo el rango de tráfico estimado (CU), el nivel de detalle de las reglas custom, o que agregue el logo/membrete de tu empresa?

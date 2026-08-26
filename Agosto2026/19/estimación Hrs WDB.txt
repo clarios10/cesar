@@ -1,0 +1,24 @@
+Aquí tienes una estimación de horas y actividades para este proyecto (despliegue GPO, 80 equipos, tenant único):
+
+#	Actividad	Horas estimadas
+1	Kickoff y validación de licenciamiento/permisos	1 - 2 h
+2	Descarga y preparación del paquete de onboarding	0.5 - 1 h
+3	Creación y configuración del GPO (tarea programada, script)	2 - 3 h
+4	Despliegue piloto (5-10 equipos) + validación en portal	2 - 3 h
+5	Monitoreo del piloto (24-48h, sin dedicación continua)	1 - 2 h
+6	Fase 1 — 20 equipos (vinculación GPO + validación)	1.5 - 2 h
+7	Fase 2 — 30 equipos (vinculación GPO + validación)	1.5 - 2 h
+8	Fase 3 — equipos restantes (cierre del despliegue)	1.5 - 2 h
+9	Configuración/ajuste de políticas (ASR, firewall, tamper protection)	2 - 4 h
+10	Pruebas de detección en muestra de equipos	1 - 2 h
+11	Documentación de cierre y entrega al cliente	1 - 2 h
+12	Contingencia (equipos con errores, troubleshooting)	2 - 4 h
+Total		~18 - 27 horas de esfuerzo
+
+Consideraciones sobre el tiempo calendario:
+
+El esfuerzo real (horas-hombre) es de aproximadamente 18 a 27 horas, pero el tiempo calendario total suele ser mayor —entre 1.5 y 3 semanas— porque entre cada fase del despliegue gradual conviene dejar 1-2 días de observación antes de escalar a la siguiente, para detectar falsos positivos o equipos que no se onboardearon correctamente.
+Si el cliente aprueba un despliegue más agresivo (todo en una sola fase sin monitoreo intermedio), el esfuerzo baja a unas 12-15 horas, pero se asume más riesgo.
+El punto 12 (contingencia) es variable: equipos con GPO bloqueado por otras políticas, problemas de conectividad a los endpoints de Microsoft, o excepciones de antivirus previo (si hay otro AV instalado que haya que desinstalar primero) pueden añadir horas extra.
+
+¿Quieres que agregue esta tabla de estimación como una sección adicional al documento Word que ya generamos?
