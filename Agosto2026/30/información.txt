@@ -1,1 +1,16 @@
+1. El problema técnico: Windows 11 Home → Business
 
+Aquí está la causa raíz, y es importante que la tengas clara porque probablemente explica por qué "no funciona" y por qué el consultor no lo puede resolver solo:
+
+M365 Business Premium NO incluye una licencia gratuita para actualizar de Home a Pro. Esto es una confusión muy común (aparece constantemente en los foros de Microsoft). Lo que sí incluye es "Windows 11 Business", pero esa edición es literalmente Windows Pro + gestión en la nube (Intune/Entra ID). El flujo real es:
+
+El equipo debe estar en Windows 11 Pro (esto requiere comprar una licencia de actualización real, ~$99 USD por equipo vía Microsoft Store, o clave de volumen/CSP — Home NO se puede unir a Entra ID ni gestionar con Intune bajo ninguna circunstancia).
+Una vez activado como Pro, se une el equipo a Entra ID (Azure AD Join).
+Se asigna al usuario una licencia de M365 Business Premium.
+Automáticamente el sistema "sube" de Pro a Business (step-up licensing).
+
+Errores típicos que están viendo (0xC004C003, 0xC004F050, 0x80070490, etc.) casi siempre ocurren porque:
+
+Usaron una clave genérica de Pro sacada de internet (esas solo cambian la edición del sistema visualmente, pero no activan nada — Windows queda "Pro" pero sin licencia válida).
+Usaron una clave de volumen/KMS que no aplica a una instalación retail de Home.
+Intentaron el step-up (Pro→Business) sin que el equipo tuviera antes una licencia Pro genuina y activada.
