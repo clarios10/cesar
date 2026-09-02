@@ -1,1 +1,9 @@
 
+Hola Buenas Tardes.
+
+Podemos tener una sesión para evaluar algo en Azure, es algo como ésto:
+
+Opción 1: Crear un Plan App Service con región en Centra US y que este se pueda conectar a nuestra red y pueda ver todo lo que tenemos en South Central US.
+Opcion 2:  Crear o Migrar toda la infraestructura que ya se tiene y moverla a Central US.
+
+
