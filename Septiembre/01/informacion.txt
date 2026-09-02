@@ -7,3 +7,23 @@ Opción 1: Crear un Plan App Service con región en Centra US y que este se pued
 Opcion 2:  Crear o Migrar toda la infraestructura que ya se tiene y moverla a Central US.
 
 
+
+Murguia
+
+Storage
+Azure App Service
+Virtual Machines Licenses
+Virtual Machines
+Backup
+VPN Gateway
+Virtual Network
+Azure Site Recovery
+Bandwidth
+Log Analytics
+Traffic Manager
+Network Watcher
+Azure Monitor
+Azure DNS
+Automation
+Service Bus
+
