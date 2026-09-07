@@ -1,1 +1,19 @@
 
+Se esta evaluando Microsoft Fabric y necesito que me apoyes con las siguientes cotizaciones.
+F4
+F8
+F16
+F32
+F64
+
+Para estos escenarios favor de considerar:
+Costo mensual PAYG
+Costo Anual PAYG
+
+Adicionalmente, y solo para los escenarios de F32 y F64 Considerar:
+
+Reserva 1 año
+Reserva 3 años
+
+Incluir también
+Costos de OneLake Storage por TB
