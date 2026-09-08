@@ -17,3 +17,13 @@ Reserva 3 años
 
 Incluir también
 Costos de OneLake Storage por TB
+
+
+
+*-*-*-
+¿Cuántas sesiones de usuario esperan al mes (aproximado, aunque sea un rango)?
+Menos de 1,000 (piloto/MVP)
+¿Cómo planean generar la vista del diseño?
+Generación de imagen con IA (texto/foto → render)
+¿Cuántos renders/iteraciones esperan en promedio por sesión?
+6+ (exploración extensa)
