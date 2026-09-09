@@ -27,3 +27,14 @@ Menos de 1,000 (piloto/MVP)
 Generación de imagen con IA (texto/foto → render)
 ¿Cuántos renders/iteraciones esperan en promedio por sesión?
 6+ (exploración extensa)
+
+
+
+https://www.techtarget.com/it-infrastructure/tutorial/Checking-Exchange-Online-health-with-PowerShell-automation
+
+
+
+
+
+
+
