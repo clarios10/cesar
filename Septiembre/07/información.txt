@@ -40,5 +40,6 @@ Pass:Mexico26!"#
 
 https://miskakyto.fi/how-to-deploy-microsoft-places/
 
+https://github.com/admindroid-community/powershell-scripts/tree/master
 
-
+https://github.com/admindroid-community/powershell-scripts/tree/master
