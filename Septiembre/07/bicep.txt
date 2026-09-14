@@ -1,0 +1,112 @@
+# Despliegue Bicep — Arquitectura 3 Niveles en Azure (IaaS)
+
+Código de despliegue (Infrastructure as Code) basado en la **Sección 11 —
+Estimación de Costos / SKUs** del documento *"Propuesta Arquitectura Azure
+3Niveles.docx"*, y en las Secciones 4, 7 y 12 para la red, discos y
+componentes opcionales.
+
+## Recursos que despliega
+
+| # | Recurso | SKU / Tier | Sección de la propuesta |
+|---|---------|-----------|--------------------------|
+| 1 | VNet + 4 subredes (AppGW, App, BD, Mgmt) + NSGs | — | 4, 7.3, 7.4 |
+| 2 | VM Servidor de Aplicación | `Standard_D8as_v5` (8 vCPU/32GB) + discos Premium SSD (512GB OS + 1TB App + 1TB Logs) | 7.1, 11 |
+| 3 | VM Servidor de Base de Datos | `Standard_F8s_v2` (8 vCPU/16GB) + SQL Server (PAYG/AHUB) + discos (512GB OS + 2TB BD + 1TB Logs) | 7.2, 11 |
+| 4 | Application Gateway | `WAF_v2`, autoescalado 1-3, + **1 IP Pública** Standard | 4.1, 4.1.1, 11, 12.1 |
+| 5 | Azure VPN Gateway (S2S) — *opcional* | `VpnGw1` | 4.1.2, 11, 12.3 |
+| 6 | Azure Bastion — *opcional* | Standard | 7.3, 11, 12.2 |
+| 7 | Log Analytics + Azure Monitor (alertas) | PerGB2018 | 4.6, 11 |
+| 8 | Recovery Services Vault + política de backup | GRS/LRS | 4.6, 11 |
+
+## Estructura de archivos
+
+```
+bicepproj/
+├── main.bicep              # Orquestador principal
+├── main.bicepparam          # Parámetros de ejemplo (AJUSTAR antes de usar)
+└── modules/
+    ├── network.bicep         # VNet, subredes, NSGs
+    ├── appGateway.bicep       # Application Gateway WAF_v2 + IP Pública
+    ├── vmApp.bicep            # VM Servidor de Aplicación
+    ├── vmDb.bicep             # VM Servidor de Base de Datos + SQL IaaS
+    ├── vpnGateway.bicep       # VPN Gateway Site-to-Site (opcional)
+    ├── bastion.bicep          # Azure Bastion (opcional)
+    ├── monitoring.bicep       # Log Analytics + alertas
+    └── backup.bicep           # Recovery Services Vault + protección de VMs
+```
+
+## Requisitos previos (antes de desplegar)
+
+1. **Certificado TLS**: subir el certificado del dominio de la aplicación a un
+   Azure Key Vault existente, y crear una identidad administrada (User
+   Assigned Managed Identity) con permiso `Get` sobre secretos de ese Key
+   Vault. Sus IDs van en `sslCertKeyVaultSecretId` y `managedIdentityId`.
+2. **Resource Group** ya creado (`az group create`).
+3. **Confirmar la imagen de marketplace de SQL Server 2025** disponible en tu
+   región/suscripción (parámetro `sqlImageReference` en `vmDb.bicep`) — la
+   disponibilidad de imágenes varía; validar con
+   `az vm image list --publisher MicrosoftSQLServer --all`.
+4. Decidir `sqlLicenseType` (`PAYG` o `AHUB`) — ver Sección 11 de la
+   propuesta: Azure Hybrid Benefit puede reducir el costo hasta ~55%.
+5. Revisar/editar `main.bicepparam` con los valores reales del cliente
+   (nombre, región, sucursales, email de alertas, etc.). **Nunca** dejar
+   contraseñas o PSK reales en texto plano en el repositorio: pasarlos por
+   `--parameters` en el momento del despliegue o mediante referencia a Key
+   Vault.
+
+## Validar la sintaxis localmente (opcional)
+
+```bash
+# Instala el compilador standalone de Bicep si no tienes az cli
+curl -L -o bicep https://github.com/Azure/bicep/releases/latest/download/bicep-linux-x64
+chmod +x bicep
+
+./bicep build main.bicep --outfile main.json
+```
+
+## Desplegar
+
+```bash
+# 1. Iniciar sesión y seleccionar suscripción
+az login
+az account set --subscription "<subscription-id>"
+
+# 2. Crear el Resource Group (si no existe)
+az group create --name rg-contoso-app-prod --location eastus2
+
+# 3. Validar (what-if) antes de aplicar
+az deployment group what-if \
+  --resource-group rg-contoso-app-prod \
+  --template-file main.bicep \
+  --parameters main.bicepparam \
+  --parameters adminPassword=$AZ_VM_ADMIN_PASSWORD vpnSharedKey=$AZ_VPN_PSK
+
+# 4. Desplegar
+az deployment group create \
+  --resource-group rg-contoso-app-prod \
+  --template-file main.bicep \
+  --parameters main.bicepparam \
+  --parameters adminPassword=$AZ_VM_ADMIN_PASSWORD vpnSharedKey=$AZ_VPN_PSK
+```
+
+## Notas importantes / pendientes post-despliegue
+
+- **MS Office Profesional y Terminal Services** (servidor de Aplicación,
+  Sección 7.1): se instalan **después** del aprovisionamiento de la VM (vía
+  Custom Script Extension, DSC, o instalación manual) — no están incluidos en
+  este template porque requieren medios/licencias del cliente.
+- **Componentes opcionales** (Sección 12.2/12.3): `deployVpnGateway` y
+  `deployBastion` están en `true` por defecto en el ejemplo; cambiar a
+  `false` si el cliente decide usar solo TC Plus para administración
+  (ahorro aproximado de $140–$370 USD/mes combinados, según Sección 11).
+- **TC Plus**: no requiere ningún recurso adicional en este template —
+  conforme a la Sección 12.2 de la propuesta, se instala únicamente en
+  equipos de administración, nunca sobre las VMs de Aplicación/BD.
+- El listener HTTPS del Application Gateway requiere que el certificado ya
+  esté cargado en Key Vault **antes** de ejecutar el despliegue.
+- Ajustar `branchGatewayIps` / `branchAddressPrefixes` con la cantidad real
+  de sucursales que requieran túnel VPN (Sección 7.3: "1 túnel por sucursal,
+  a confirmar").
+- Los warnings `BCP081/BCP037` al compilar `backup.bicep` son limitaciones
+  conocidas de los tipos Bicep para `Microsoft.RecoveryServices` (no
+  bloquean el despliegue).
