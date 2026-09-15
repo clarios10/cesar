@@ -1,0 +1,50 @@
+ADCapital3
+Windows server 2016. 64
+4GB RAM
+2CPU
+200 GB
+
+ADCapital2
+Windows Server 2016, 64 bits
+4GB RAM
+2CPU
+200 GB
+
+
+Terminal
+Windows Server 2016, 64 vBS no habilitado
+32GB RAM
+10CPU
+300 GB
+120 GB
+
+Bio-time 72K Corp
+Windows Server 2012 64bits 
+4GB RAM
+2CPU
+120 GB
+
+
+Inventario_Ubunto2
+Ubunto Linux 22 
+4GB RAM
+2CPU
+34 GB
+
+SAPB_1corp
+Windows server 2016, VBS habilitado
+40GB RAM
+16CPU
+Disk 280GB
+Disk900 GB
+Disk400 GB
+300 GB
+
+ADCapital.Corp2
+Windows Server 2016, con VBS no habilitado 64 bits
+4GB RAM
+2CPU
+124 GB
+
+
+
