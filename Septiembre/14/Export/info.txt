@@ -8,3 +8,25 @@ Con Business Standard + Defender for Business puedes:
 ✅ Portal de seguridad unificado en Microsoft Defender.
 ✅ Incorporar equipos mediante scripts locales, GPO, herramientas de despliegue o métodos manuales.
 Para un cliente SMB esto significa que puedes proteger los dispositivos y tener visibilidad de incidentes sin haber comprado Intune.
+
+
+Pasos para DeFENDER
+Preparación (Día 1-2)
+Confirmar que las 10 licencias estén asignadas en el admin center. Validar edición de Windows (Pro/Business/Enterprise) y presencia del KB5006738 en cada equipo. Asignar rol Security Administrator al responsable técnico en Entra ID. Ejecutar la herramienta de prueba de conectividad de Microsoft en 1-2 equipos de muestra para confirmar que la red no bloquea los endpoints necesarios.
+
+Configuración del portal (Día 2)
+Entrar a security.microsoft.com y revisar la configuración inicial: crear el grupo de dispositivos 'Piloto', definir políticas base de antivirus (protección en tiempo real, protección en la nube) y dejar las políticas de firewall en modo auditoría durante el piloto para no bloquear operaciones normales.
+
+Onboarding — Windows 10 (Día 3)
+Desde Settings > Endpoints > Onboarding, seleccionar Windows 10 y 11, tipo de conectividad Streamlined, método Local script. Descargar el paquete y ejecutarlo como administrador en los 5 equipos Windows 10 (máximo 10 dispositivos a la vez, así que entran en un solo lote). Verificar que cada equipo aparezca en el inventario de dispositivos del portal dentro de los siguientes 20-30 minutos.
+Onboarding — Windows 11 (Día 3-4)
+Repetir el mismo procedimiento de script local en los 5 equipos Windows 11. Si alguno de estos equipos es Windows 11 Home actualizado a una edición compatible, ejecutar antes el comando adicional que habilita el cliente de Defender (DISM) indicado por Microsoft para esa versión.
+
+Validación técnica (Día 4-5)
+Ejecutar una prueba de detección (detection test) en al menos un equipo por sistema operativo para confirmar que el sensor está reportando correctamente al portal. Revisar que los 10 dispositivos muestren estado 'Activo' y que las políticas del grupo Piloto se hayan aplicado.
+
+Monitoreo (Día 5-10)
+Dar seguimiento diario al portal: alertas generadas, recomendaciones de gestión de vulnerabilidades, y estado de salud del sensor en los 10 equipos. Documentar cualquier falso positivo, incidencia de rendimiento o problema de conectividad reportado por los usuarios.
+
+Cierre y evaluación (Día 10-12)
+Reunión de cierre con el cliente para revisar resultados: dispositivos protegidos exitosamente, alertas relevantes detectadas, incidencias encontradas y su resolución. Documentar lecciones aprendidas y definir el plan de despliegue a los equipos restantes de la organización.
