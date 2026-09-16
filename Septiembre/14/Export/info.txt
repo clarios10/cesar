@@ -1,1 +1,10 @@
-
+¿Qué sí puedes hacer SIN Intune?
+Con Business Standard + Defender for Business puedes:
+✅ Antivirus de nueva generación (NGAV) en Windows, macOS, Android e iOS.
+✅ Detección y respuesta de endpoints (EDR).
+✅ Investigación y remediación automatizada.
+✅ Gestión de vulnerabilidades y recomendaciones de seguridad. 
+✅ Inventario de dispositivos. 
+✅ Portal de seguridad unificado en Microsoft Defender.
+✅ Incorporar equipos mediante scripts locales, GPO, herramientas de despliegue o métodos manuales.
+Para un cliente SMB esto significa que puedes proteger los dispositivos y tener visibilidad de incidentes sin haber comprado Intune.
