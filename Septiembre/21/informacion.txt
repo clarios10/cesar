@@ -1,2 +1,12 @@
 
 https://security.microsoft.com/securitysettings/endpoints/onboarding?tid=cd99dc14-71e1-4bd0-afb1-bca25cad35be
+
+Fase 0: Descubrimiento y análisis del ambiente
+Fase 1: Validación de estrategia (workshop de decisión)
+Fase 2: Preparación técnica
+Fase 3: Ejecución del corte (piloto y general)
+Fase 4: Remediación de atributos
+Fase 5: Endurecimiento de seguridad y pruebas
+Fase 6: Restablecimiento de ABC y documentación
+Fase 7: Hipercuidado (hypercare) 
+Administración de proyecto
