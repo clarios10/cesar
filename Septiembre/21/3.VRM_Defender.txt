@@ -1,0 +1,6 @@
+1.¿Que es windows Defener?, breve introducción
+2.Revisar aprovisionamiento de licencias. Se envía correo a soporte
+3.Paseo general del portal de Microsoft Defender, Breve explicación.
+4.Asignación de licencias por usuarios.
+5.sugerir una Linea Base
+
