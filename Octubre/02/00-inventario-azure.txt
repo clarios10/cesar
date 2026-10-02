@@ -1,0 +1,117 @@
+Inventario Azure — Suscripción Microsoft Azure (ceaq) #1427074
+Tenant: e2f59547-8b93-4526-862b-e0da976ad73f (Comisión Estatal de Aguas de Querétaro) · Tipo de suscripción: CSP (quotaId CSP_2015-05-01, vía Ingram Micro) · Región: East US · Grupo de recursos principal: testing-ground · Generado el 2026-09-29 con `az` en modo solo lectura.
+1. Resumen
+Total de recursos: 299
+Tipo	Cantidad
+Microsoft.Compute/disks	87
+Microsoft.Compute/virtualMachines/extensions	59
+Microsoft.Network/publicIPAddresses	31
+Microsoft.Network/networkInterfaces	29
+Microsoft.Network/networkSecurityGroups	21
+Microsoft.Compute/virtualMachines	15
+Microsoft.Storage/storageAccounts	15
+Microsoft.Compute/restorePointCollections	14
+microsoft.insights/metricalerts	6
+Microsoft.KeyVault/vaults	5
+Microsoft.Insights/actiongroups	2
+Microsoft.Insights/activityLogAlerts	2
+Microsoft.Network/frontdoors	2
+Microsoft.Network/virtualNetworks	2
+Microsoft.Cdn/profiles	1
+Microsoft.Cdn/profiles/afdendpoints	1
+Microsoft.Network/bastionHosts	1
+Microsoft.RecoveryServices/vaults	1
+Microsoft.Compute/snapshots	1
+Microsoft.DesktopVirtualization/workspaces	1
+Microsoft.Portal/dashboards	1
+microsoft.insights/actiongroups	1
+Microsoft.Network/networkWatchers	1
+2. Máquinas virtuales (15)
+VM	Tamaño	SO	Estado	Imagen	IP privada	IP pública	Discos de datos	GB (SO+datos)
+OracleDBsrv	Standard_A4_v2	Linux	running	Oracle Oracle-Linux 7.5 (dentro de la VM: 7.7)	10.10.10.6	40.117.41.157	1	94
+TTechDMS-PRD	Standard_F4s	Windows	running	MicrosoftWindowsServer WindowsServer 2016-Datacenter	10.10.12.5	40.76.2.136	1	427
+TTechDMS-QAS	Standard_A4_v2	Windows	running	MicrosoftWindowsServer WindowsServer 2016-Datacenter	10.10.11.5	40.76.2.84	1	427
+TTechDev-App-01	Standard_E4as_v4	Windows	deallocated	MicrosoftWindowsServer WindowsServer 2012-R2-Datacenter	10.10.9.9	52.147.200.226	1	527
+TTechDev-DB-01	Standard_E4as_v4	Windows	deallocated	MicrosoftWindowsServer WindowsServer 2012-R2-Datacenter	10.10.9.10	137.135.68.180	1	1000
+TTechGRP-PRD	Standard_DS13_v2	Windows	running	MicrosoftWindowsServer WindowsServer 2016-Datacenter	10.10.12.4	40.117.40.246	6	1275
+TTechGRP-QAS	Standard_DS12-1_v2	Windows	running	MicrosoftWindowsServer WindowsServer 2016-Datacenter	10.10.11.4	13.68.213.224	5	975
+TTechGRPPRD0922	Standard_DS13_v2	Windows	running	Creada desde disco (sin imagen)	10.0.0.9	52.186.137.124	6	1275
+TTechProd-App-1	Standard_E8as_v4	Windows	deallocated	MicrosoftWindowsServer WindowsServer 2012-R2-Datacenter	10.10.10.5	40.76.1.120	1	627
+TTechProd-DB-01	Standard_E8as_v4	Windows	deallocated	MicrosoftWindowsServer WindowsServer 2012-R2-Datacenter	10.10.10.4	40.76.2.15	2	2163
+TTechQA-App-01	Standard_E4as_v4	Windows	deallocated	MicrosoftWindowsServer WindowsServer 2012-R2-Datacenter	10.10.8.5	40.76.1.17	1	277
+TTechQA-DB-01	Standard_E4as_v4	Windows	deallocated	MicrosoftWindowsServer WindowsServer 2012-R2-Datacenter	10.10.8.4	40.76.0.140	1	727
+TTechSAP-DMS	Standard_A4_v2	Windows	running	MicrosoftWindowsServer WindowsServer 2016-Datacenter	10.0.0.5	40.121.142.20	1	427
+TTechSAP-ECC	Standard_B4ms	Windows	running	MicrosoftWindowsServer WindowsServer 2016-Datacenter	10.0.0.4	40.114.64.139	5	1098
+TTechSAP-router	Standard_A4_v2	Windows	running	MicrosoftWindowsServer WindowsServer 2016-Datacenter	10.0.0.6,10.0.0.7	52.168.66.121	1	210
+Suma de discos adjuntos a VM: 11529 GB. Encendidas: 9 · Desasignadas: 6 (Dev/QA/Prod App+DB). 14 de las 15 tienen respaldo diario (DailyPolicy) con último resultado exitoso el 28-sep-2026; TTechGRPPRD0922 no tiene respaldo.
+3. Discos administrados
+Total: 87 discos, 21357 GB
+Adjuntos a VM: 49 discos, 11529 GB
+Sin adjuntar (huérfanos): 38 discos, 9828 GB — son restauraciones de 2021–2022 (proddb01, prodapp1, ttechgrpqas1/2/b2/b3/bk), etiquetadas rsvaultbackup. Candidatos a descartar antes de migrar.
+4. Respaldo
+Recovery Services vault: vault573 (East US), 14 elementos protegidos (las 14 VM sin TTechGRPPRD0922), política DailyPolicy. TTechGRPPRD0922 no aparece protegida.
+14 restorePointCollections.
+5. Red
+VNet Qorder ['10.10.0.0/16']: default 10.10.1.0/24, Prod 10.10.10.0/24, DEV 10.10.9.0/24, QA 10.10.8.0/24, SAP-PROD 10.10.12.0/24, SAP-QA 10.10.11.0/24, AzureBastionSubnet 10.10.0.64/26
+VNet Testing-ground-vnet ['10.0.0.0/24']: default 10.0.0.0/24
+IPs públicas: 31 (29 asociadas, 2 sin asociar; 16 dinámicas Basic, 14 estáticas Basic, 1 estática Standard). Cambiarán al migrar.
+NICs: 29, de las cuales 13 no están conectadas a ninguna VM (restos de restauraciones).
+NSG: 21 (17 asociados a una NIC/subred y 4 sin asociar: Dev-App-01-nsg, Dev-DB-01-nsg, DevApp01nsg209, TechSAP-ECC-nsg). Puertos con entrada permitida desde cualquier origen, solo en los NSG asociados:
+OracleDBsrv-nsg: 22, 443, 80, 15210
+TTechDev-App-01-nsg: 80, 443, 3389
+TTechDev-Db-01-nsg: 80, 443, 3389
+TTechDevApp01nsg178: 49553, 443, 80, 8080, 13500, 3306, 22, 50000-51000, 21
+TTechDevDB01nsg711: 80, 443, 49553, 8080, 13500, 13502
+TTechDMS-PRD-nsg: 80, 443, 49553, 8080, 13500, 3200-3299, 8000, 25, 1090, 1095
+TTechDMS-QAS-nsg: 80, 443, 49553, 8080, 13500, 1090, 1095, 8000, 25, 3200
+TTechGRP-PRD-nsg: 80, 443, 49553, 8080, 13500, 25, 1090, 1095, 8000, 3200-3999, 51650, 56839, 50045, 61116, 53921, 0, 22, 50000-51000
+TTechGRP-QAS-nsg: 80, 443, 49553, 8080, 13500, 1090, 1095, 8000, 25, 3200-3299
+TTechGRP-QASBK-nsg: 49553, 3200-3299, 3200
+TTechProd-App-1-nsg: 80, 443, 49553, 13500, 13551, 13552, 22, 50000-51000, 8080
+TTechProd-DB-01-nsg: 80, 443, 49553, 445, 22, 50000-51000, 3306, 13553
+TTechQA-App-01-nsg: 80, 443, 49553
+TTechQA-DB-01-nsg: 80, 443, 49553
+TTechSAP-DMS-nsg: 80, 443, 3389, 1090, 1095
+TTechSAP-ECC-nsg: 49553, 80, 443, 3200-3299, 1090, 1095, 8000, 22, 50000-51000
+TTechSAP-router-nsg: 80, 443, 22, 49553, 3200-3299, 8000, 8090, 21, 50000-51000
+(Ojo: 49553 es el puerto de RDP no estándar; 3389, 22, 3306, 445, 21 y 25 también aparecen abiertos en algunos NSG.)
+6. Almacenamiento (15 cuentas)
+admintransfers · Standard_LRS · Storage
+qorderbackups01 · Standard_RAGRS · StorageV2
+testinggrounddiag106 · Standard_LRS · Storage
+testinggrounddiag274 · Standard_LRS · Storage
+testinggrounddiag408 · Standard_LRS · Storage
+testinggrounddiag592 · Standard_LRS · Storage
+testinggrounddiag622 · Standard_LRS · Storage
+testinggrounddiag650 · Standard_LRS · Storage
+testinggrounddiag719 · Standard_LRS · Storage
+testinggrounddiag934 · Standard_LRS · Storage
+cs710032000f8cbc678 · Standard_LRS · StorageV2
+cs710032001106f5746 · Standard_LRS · StorageV2
+cs71003200242699e44 · Standard_LRS · StorageV2
+cs710032002801934a9 · Standard_LRS · StorageV2
+cs710032002e23d2f45 · Standard_LRS · StorageV2
+7. Otros servicios
+Key Vault (5): kv-ttechprod-app-1, kv-ceaqueretarogobmx2022, certificadov4, certificadoCEA2023, CERTIFICADOSV2 (certificados SSL de proveedores).
+Azure Front Door: dos clásicos (`ceaq-proveedores`, `TTechProd-App-1`) + un perfil Front Door Standard (`TTechProd-App-1-automigrated`).
+Snapshot: `SAPRouter-previoamovimientoregistro` (Standard_LRS).
+Bastion: `Qorder-bastion` (SKU Basic).
+Network Watcher, Azure Virtual Desktop workspace (1), Dashboard (1).
+Monitor: 6 alertas de métricas, 2 alertas de actividad, 3 grupos de acción. Extensiones de VM: MMA/OMS, Dependency Agent, Diagnósticos, AdminCenter, CustomScript.
+Bloqueos de recursos: ninguno. Políticas asignadas: ver datos/policy.json.
+8. Accesos (RBAC) — no se migran solos
+Principal	Tipo	Roles
+totaltech_az_outlook.com#EXT#@ceaq.onmicrosoft.com	User	Contributor, Owner
+d7728b06-a9d3-455c-9d96-eb1bf473a687	ServicePrincipal	Contributor, Resource Policy Contributor
+royrojas_outlook.com#EXT#@ceaq.onmicrosoft.com	User	Owner
+rguajardo@ceaq.onmicrosoft.com	User	Desktop Virtualization Reader, Reader
+admin@ceaq.onmicrosoft.com	User	App Compliance Automation Administrator, Key Vault Administrator, Key Vault Certificate User, Key Vault Secrets Officer, Owner, Resource Policy Contributor, User Access Administrator
+emartinezh@ceaq.onmicrosoft.com	User	App Compliance Automation Administrator, Managed Application Contributor Role, Owner
+Foreign Principal for 'Ingram Micro M xico, S.A. de C.V.' in Role 'TenantAdmins' (Comision Estatal de Aguas de Queretaro)	ForeignGroup	Owner
+ad0e1c7e-6d38-4ba4-9efd-0bc77ba9f037	ServicePrincipal	Contributor
+SOPORTEBA@ceaq.onmicrosoft.com	User	Owner
+rcastanon_totaltech.com.mx#EXT#@ceaq.onmicrosoft.com	User	Owner
+mmarquez@ceaq.onmicrosoft.com	User	Owner
+isc.carlosperez_hotmail.com#EXT#@ceaq.onmicrosoft.com	User	Owner, Windows Admin Center Administrator Login
+fvenegas_totaltech.com.mx#EXT#@ceaq.onmicrosoft.com	User	Contributor
+rcastanonr_gmail.com#EXT#@ceaq.onmicrosoft.com	User	Contributor, Owner
