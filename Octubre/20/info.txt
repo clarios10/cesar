@@ -1,1 +1,3 @@
+Un ambiente Nuevo, en la misma red, en Docker, en la misma DB, 
+Se requiere un Ubuntu 26.04 con 4 VCPUs, 16 GB RAM y 100 GB disco SSD, en la misma Vnet (Vnet-cpay-uat/default) donde se encuentra el servidor de MARIADB01, con IP Interna Fija, sin puertos abiertos a internet, SSH(Administracion), VPN, Azure Bastion, o IP fija. Salida a internet por puerto seguro 443 (Actualizaciones) y el túnel por donde entra el trafico y que la VM(Ubuntu | nueva) llegue al SQL al MAriaDB01 por el puerto 51888, Un usuario con SUDO y la llave con SSH.
 
