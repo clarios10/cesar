@@ -1,0 +1,17 @@
+Ya está actualizado el documento con la estrategia full cloud en tus cuatro fases. Te envío también el paquete de scripts en Depuracion-M365.zip. Edité el mismo documento del que salió tu .docx, así que puedes volver a exportarlo a Word.
+
+Cómo funcionan los scripts:
+
+Fase 1 (identificación) solo lee el tenant. Genera tres CSV (usuarios e invitados, grupos y dispositivos) donde cada objeto trae un código de motivo y una acción propuesta. El cliente marca Aprobado = SI en lo que autoriza.
+Fase 2 (etiquetar) marca cada objeto aprobado con una etiqueta de la forma M365DEP|fase|fecha|motivo. Esa etiqueta impide saltarse fases o los tiempos de espera.
+Fase 3 (deshabilitar) bloquea el acceso, oculta buzones y grupos, y respalda claves BitLocker y miembros de grupos, sin borrar datos.
+Fase 4 (eliminar) borra solo lo que lleva 30 días deshabilitado, y pide escribir ELIMINAR antes de aplicar.
+Reversión: hay un script para regresar desde la Fase 3 y otro para restaurar desde la papelera.
+Ajustes: un script aparte corrige UPN, licencias de buzones compartidos y cuentas de buzones compartidos que aún pueden iniciar sesión.
+Seguridad: todos simulan por defecto y solo aplican cambios con -Ejecutar. Cada ejecución deja una bitácora.
+
+Tres cosas a revisar antes de empezar:
+
+La marca de sincronización del tenant. Que ya no existan el AD ni Entra Connect no la apaga sola. Si sigue encendida, los 345 usuarios que antes se sincronizaban no se pueden deshabilitar ni borrar desde la nube. 00-Prerrequisitos.ps1 la revisa y puede apagarla; el cambio tarda hasta 72 horas.
+El campo de la etiqueta. En usuarios y dispositivos la etiqueta se guarda en el campo extensionAttribute15. Confirma que ese campo no lo use ya otra regla o aplicación.
+No se han probado contra el tenant. Revisé que la sintaxis sea válida en PowerShell 7.4 y probé la lógica de etiquetas sin conexión. Corre el ciclo completo con 2 o 3 cuentas piloto antes de los lotes reales.
