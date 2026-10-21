@@ -1,3 +1,26 @@
 Un ambiente Nuevo, en la misma red, en Docker, en la misma DB, 
 Se requiere un Ubuntu 26.04 con 4 VCPUs, 16 GB RAM y 100 GB disco SSD, en la misma Vnet (Vnet-cpay-uat/default) donde se encuentra el servidor de MARIADB01, con IP Interna Fija, sin puertos abiertos a internet, SSH(Administracion), VPN, Azure Bastion, o IP fija. Salida a internet por puerto seguro 443 (Actualizaciones) y el túnel por donde entra el trafico y que la VM(Ubuntu | nueva) llegue al SQL al MAriaDB01 por el puerto 51888, Un usuario con SUDO y la llave con SSH.
 
+
+
+
+
+Central pay | Creación de nueva VM-Ubun01 | Mysql.
+Nombre de la suscripción: Azure subscription 1.
+Grupo de recursos: rg-cplay-uat
+Ubicación: South Central US 
+Contexto:
+El servicio de Central Pay corre en una VM de Windows Server 2022, con una DB en SQL SERVER.
+Para el ambiente Nuevo, se requiere que este en la misma subnet, del actual servidor de base de datos. 
+Para el nuevo ambiente se requiere un servidor con las nuevas características:
+•	Ubuntu 26.04 con 4 VCPUs, 16 GB RAM (D4as v7 Linux (4 vCPU, 16 GB)) 
+•	OS 128GB
+•	DataBase 100 GB disco SSD
+•	Logs 100 GB de disco SSD
+•	En la misma Vnet (Vnet-cpay-uat/default) donde se encuentra el servidor de MARIADB01
+•	con IP Interna Fija.(172.41.0.11/32)
+•	sin puertos abiertos a internet. Validar los NSG
+•	SSH(Administracion), 
+•	VPN, Azure Bastion, o IP fija. 
+•	Salida a internet por puerto seguro 443 (Actualizaciones) y el túnel por donde entra el trafico 
+•	y que la VM(Ubuntu | nueva) llegue al SQL al MAriaDB01 por el puerto 51888, Un usuario con SUDO y la llave con SSH.
