@@ -24,3 +24,5 @@ Para el nuevo ambiente se requiere un servidor con las nuevas características:
 •	VPN, Azure Bastion, o IP fija. 
 •	Salida a internet por puerto seguro 443 (Actualizaciones) y el túnel por donde entra el trafico 
 •	y que la VM(Ubuntu | nueva) llegue al SQL al MAriaDB01 por el puerto 51888, Un usuario con SUDO y la llave con SSH.
+•	Frecuencia de Backups diaria, Agregar la nueva VM a la política de DailyPolicy-cpay-uat-(estándar)
+•	Almacen de backup: vault-cpay-uat
