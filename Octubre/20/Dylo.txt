@@ -1,0 +1,218 @@
+
+
+
+Espero que se encuentren muy bien.
+
+ 
+
+Como parte del proceso de implementación global para nuestra organización tras concluir la etapa de configuración, comenzamos con las actividades de despliegue automatizado (aplicación de fondo de pantalla corporativo y cifrado de disco).
+
+ 
+
+Durante nuevas pruebas, hemos detectado dos comportamientos inconsistentes dependiendo del fabricante y modelo del equipo. A continuación, les detallamos los dos escenarios identificados para su validación en nuestra próxima sesión semanal:
+
+ 
+
+
+
+Escenario / Dispositivos
+
+Cifrado BitLocker Automático
+
+Aplicación de Wallpaper Corporativo
+
+Comportamiento Detectado
+
+Equipos Nuevos (Lenovo)
+
+✅ Funciona tiene clave de recuperación
+
+❌ No se aplica
+
+El almacenamiento se cifra de forma automática, pero el fondo de pantalla institucional no se ve reflejado.
+
+Equipos Anteriores (HP)
+
+❌ No es automático
+
+✅ Funciona correctamente
+
+El fondo de pantalla se aplica sin problemas, pero el cifrado no se ejecuta en segundo plano; en su lugar, interrumpe al usuario con ventanas emergentes consecutivas solicitando confirmación manual (tal como se muestra en la imagen adjunta).
+
+ 
+
+Información adicional sobre los equipos HP:
+
+ 
+
+Como se observa en la captura de pantalla adjunta, el sistema operativo muestra las alertas de "Se requiere cifrado" y "¿Estás listo para iniciar el cifrado?", indicando que la política de privacidad y seguridad queda en estado Desactivado hasta que el usuario interactúe.
+
+ 
+
+El objetivo es que este proceso sea completamente silencioso y automatizado, tal como ocurre en los equipos Lenovo, pero puede ser que dentro de las diferencias de equipos algo pueda estar haciendo que
+
+ 
+
+Agradecemos de antemano su apoyo para revisar estas diferencias.
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Estaremos realizando las validaciones indicadas en los equipos HP afectados, considerando los puntos relacionados con TPM, UEFI/Secure Boot, estado de BitLocker, eventos y configuración de la política. Una vez concluidas las revisiones, te compartiremos las evidencias y resultados obtenidos para continuar con el análisis.
+
+Adicionalmente, quisiéramos aclarar y retomar dos puntos:
+
+
+1. BitLocker en equipos Lenovo
+
+En los equipos Lenovo el cifrado sí se está aplicando automáticamente y podemos visualizar la clave de recuperación en Intune. Sin embargo, tenemos la duda respecto al estado de aplicación de la política.
+
+Por ejemplo, el equipo LAUGAR-PW0MSWWD cuenta con su clave de recuperación registrada en Intune, pero no aparece reflejado dentro de la política Win-Dylo-Bitlocker.
+
+ Agradeceríamos su apoyo para validar por qué, aun cuando BitLocker se encuentra aplicado y la clave está respaldada, el dispositivo no se muestra dentro del estado de aplicación de dicha política.
+
+ 
+
+2. Wallpaper corporativo mediante Intune
+
+Respecto al Wallpaper, agradeceríamos también confirmar si la edición de Windows instalada en el equipo influye en la aplicación de esta política.
+
+Específicamente, necesitamos validar si existe alguna restricción para equipos con Windows Pro en comparación con Windows Enterprise, o si la política debería aplicarse de igual manera independientemente de estas ediciones.
+
+ 
+
+Este punto nos permitirá determinar si el comportamiento observado está relacionado con la edición del sistema operativo o si debemos continuar revisando otras alternativas de implementación.
+
+ 
+
+Quedamos atentos a tus comentarios. Por nuestra parte, realizaremos las validaciones indicadas y posteriormente compartiremos las evidencias correspondientes.
+
+ 
+---------------------------------------------------------------------------------------------------------
+Asunto: Re: Reporte de incidencias en implementación: Cifrado BitLocker y Wallpaper corporativo
+
+ 
+
+Buen día
+
+Con el objetivo de identificar la causa por la cual el cifrado silencioso de BitLocker se aplica correctamente en equipos Lenovo, pero requiere intervención manual en algunos equipos HP, agradeceré su apoyo para realizar las siguientes validaciones y actividades.
+
+1. Validación de prerrequisitos para BitLocker Silent Encryption
+
+Favor de revisar en los equipos HP afectados los siguientes puntos:
+
+Configuración del TPM
+
+Ejecutar: PowerShell
+
+Get-Tpm
+
+Validar que los siguientes valores sean correctos:
+
+TpmPresent : True
+
+TpmReady : True
+
+ 
+
+Configuración de UEFI y Secure Boot
+
+Ejecutar: PowerShell
+
+Confirm-SecureBootUEFI
+
+ 
+
+El resultado debe ser:
+
+ 
+
+True
+
+ 
+
+Adicionalmente, revisar en BIOS:
+
+TPM habilitado.
+TPM State habilitado.
+Secure Boot habilitado.
+Modo de arranque UEFI.
+Estado de BitLocker
+
+Ejecutar: PowerShell
+
+manage-bde -status
+
+Get-BitLockerVolume
+
+Validación de políticas de Intune
+
+Confirmar que la política de BitLocker no requiera:
+
+Startup PIN.
+Startup Key.
+Startup Key + PIN.
+Cualquiera de estas configuraciones puede impedir el cifrado silencioso y provocar que el usuario deba iniciar el proceso manualmente.
+
+Revisión de eventos
+
+Validar los registros en:
+
+Event Viewer
+
+└ Applications and Services Logs
+
+└ Microsoft
+
+└ Windows
+
+└ BitLocker-API
+
+y
+
+Microsoft-Windows-TPM-WMI
+
+2. Validación de despliegue de Wallpaper mediante Intune
+
+Para la implementación de fondos corporativos, favor de validar:
+
+Requisitos de la imagen
+
+Formato JPG, JPEG o PNG.
+Resolución recomendada 1920x1080 o superior.
+Relación de aspecto 16:9.
+Validación de acceso a la imagen
+
+Confirmar que la URL de la imagen sea accesible desde los dispositivos administrados:
+
+Plain Text
+
+https://<servidor>/<imagen>.jpg
+
+ 
+
+Si lo anterios resulta correcto, considerar aplicar la alternativa descrita en la documentacion que se adjunta al final del correo.
+
+Documentación oficial Microsoft
+
+BitLocker mediante Intune
+
+Microsoft Learn: Encrypt Windows devices with BitLocker using Intune https://learn.microsoft.com/en-us/intune/device-configuration/endpoint-security/encrypt-bitlocker-windows
+Fondos de escritorio y pantalla de bloqueo
+
+Microsoft Learn: Configure the desktop and lock screen backgrounds in Windows https://learn.microsoft.com/en-us/windows/configuration/background/
+ 
+
+ 
+----------------------------------------------------------------------------------------
+ 
+
+Respecto al inconveniente con el Wallpaper, revisé información no oficial que indica que esta política solo aplica para equipos con versiones Windows Enterprise y Education, excluyendo a la versión Pro.
+
+Actualmente, los equipos que presentan la falla cuentan con la versión Windows Pro.
+
+ 
+
+Agradecemos su apoyo para validar si esta restricción es correcta y, de ser así, verificar qué alternativas o soluciones podemos implementar para estos equipos.
+
+
+
+
+ 
