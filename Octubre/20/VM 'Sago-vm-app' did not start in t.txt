@@ -1,0 +1,2 @@
+VM 'Sago-vm-app' did not start in the allotted time. The VM may still start successfully. Please check the power state later.
+Volver a aplicar la máquina virtual puede resolver el problema.
