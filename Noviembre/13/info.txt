@@ -1,1 +1,16 @@
+Estamos revisando el consumo de Azure de la suscripción e66905c3-6d35-4909-a609-150ead16e122 y necesitamos su apoyo con las reservas, porque desde nuestro lado no tenemos permiso para verlas (Microsoft.Capacity) y en Cost Management el costo de compra no aparece.
 
+1. Detalle de todas las reservas vigentes
+Para cada una nos pueden compartir: producto y SKU, cantidad de instancias, región, plazo, fecha de inicio y de vencimiento, forma de pago (anticipado o mensual), costo mensual y si está configurada la renovación automática. Por lo que vemos en el uso son 9 de máquinas virtuales y una de App Service Premium v3 P2v3 en South Central US, todas de 3 años, que empezaron alrededor del 9 y el 24 de octubre de 2024.
+
+2. Cantidad de la reserva de App Service P2v3
+En varios días la reserva cubrió más de 24 horas (por ejemplo 36.4 h el 23 de septiembre y 35 h el 11 de noviembre), lo que indica que es de 2 instancias. Nosotros solo usamos 1 de forma permanente. ¿Nos confirman la cantidad?
+
+3. Cambio de la instancia que no usamos
+Si son 2, queremos cambiar (exchange) la que sobra por una reserva para nuestro plan de producción, que hoy es un P3v3 en South Central US y se paga completo sin reserva. ¿Es posible con nuestro esquema de contrato con ustedes? ¿Qué condiciones aplican (valor prorrateado, plazo nuevo, costo resultante)? Si hay otra opción mejor, como devolución, también nos interesa conocerla.
+
+4. Acceso de lectura a las reservas
+¿Nos pueden dar el rol Reservations Reader (o el equivalente) para aavelar@murguia.com y dcruz@murguia.com? Así damos seguimiento al uso de las reservas sin tener que pedirles la información cada vez.
+
+5. Azure Hybrid Benefit
+¿Tenemos licencias de Windows Server o SQL Server con Software Assurance que podamos aplicar a las máquinas virtuales? Si no, ¿nos podrían cotizar qué conviene?
